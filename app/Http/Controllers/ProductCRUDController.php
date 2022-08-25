@@ -4,24 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Product_category;
 
 class ProductCRUDController extends Controller
 {
 
     public function index()
     {
-    $data['products'] = Product::orderBy('id','desc')->paginate(5);
-    return view('products.index', $data);
+    $products = Product::orderBy('id','desc')->paginate(5);
+    return view('products.index',compact('products'));
+
     }
 
     public function create()
     {
-    return view('products.create');
+    $data = Product_category::get();
+    return view('products.create',compact('data'));
     }
 
     public function store(Request $request)
     {
-        return $request->all();
+         return $request->all();
     $request->validate([
 
     'name' => 'required',
@@ -41,13 +44,6 @@ class ProductCRUDController extends Controller
     $product->active = $request->active;
     $product->save();
 
-    // @foreach($manufacturerList as $item)
-    // {
-
-    //     $brand->manufacturer()->create(['manufacturer_id' => $item]);
-
-    // }
-    // @endforeach
     return redirect()->route('products.index')
 
     ->with('success','Product   has been created successfully.');
@@ -63,7 +59,7 @@ class ProductCRUDController extends Controller
     $request->validate([
 
 
-    'name'        => 'required',
+    'name'      => 'required',
     'description' => 'required',
     'purchase_price'=> 'required',
     'active'=> 'required',

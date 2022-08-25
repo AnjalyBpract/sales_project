@@ -56,13 +56,17 @@
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12">
+    <strong>Product Category:</strong>
     <select class="form-control" aria-label="Default select example" name="product_category_id">
-        <option selected>select Category Id</option>
+        @foreach($data as $item)
+            <option value= "{{$item->id}}" >{{$item->name}}</option>
+        @endforeach
       </select>
     </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <strong>Description</strong>
+            <label for="exampleFormControlTextarea1" class="form-label"></label>
             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="4"></textarea>
         </div>
 
