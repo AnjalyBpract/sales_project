@@ -1,4 +1,4 @@
-{{-- <html> --}}
+
 
 
 <form action="{{ route('logout') }}" method="POST">
@@ -14,17 +14,27 @@
         </div>
 
         <div class="col-md-2">
-            <a href="{{ route('users')}}" calss="btn btn-outline-primary">User</a>
+            <a href="{{ route('user') }}" calss="btn btn-outline-primary">Vendor/ Customer</a>
         </div>
 
         <div class="col-md-2">
-            <a href="{{ route('product_categories')}}" calss="btn btn-outline-primary">Product Category</a>
+            <a href="{{ route('product_categories') }}" calss="btn btn-outline-primary">Product Category</a>
         </div>
 
         <div class="col-md-2">
-            <a href="{{ route('products')}}" calss="btn btn-outline-primary">Products</a>
+            <a href="{{ route('products') }}" calss="btn btn-outline-primary">Product</a>
         </div>
+
+
+
+
+
+
+
+
+
+
+
 
     </div>
-</div>
-</html> --}}
+</div> --}}

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
 use App\Http\Controllers\Product_categoryCURDController;
 use App\Http\Controllers\ProductCRUDController;
+use App\Http\Controllers\SaleCRUDController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,11 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-// Route::resource('users', UserCRUDController::class);
+ Route::resource('users', UserCRUDController::class);
 Route::resource('product_categories', Product_categoryCURDController::class);
 Route::resource('products', ProductCRUDController::class);
+Route::resource('transactions', SaleCRUDController::class);
+
+Route::post('api/fetch-product_categories',[SaleCRUDController::class, 'fetchProduct_category']);
+
 
