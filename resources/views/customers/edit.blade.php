@@ -6,14 +6,23 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 </head>
 <body>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 <div class="container mt-2">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Users</h2>
+                <h2>Edit Vendor</h2>
             </div>
             <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}" enctype="multipart/form-data"> Back</a>
+            <a class="btn btn-primary" href="{{ route('customers.index') }}" enctype="multipart/form-data"> Back</a>
             </div>
         </div>
     </div>
@@ -22,14 +31,14 @@
                 {{ session('status') }}
             </div>
         @endif
-    <form action="{{ route('users.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('customers.update',$customer->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name:</strong>
-                <input type="text" name="name" value="{{ $user->name }}" class="form-control" placeholder="Company name">
+                <input type="text" name="name" value="{{ $customer->name }}" class="form-control" placeholder="Company name">
             @error('name')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
@@ -38,30 +47,31 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-        <strong>Address:</strong>
-            <input type="text" name="address" value="{{ $user->address }}" class="form-control" placeholder="Address">
+            <strong>Address</strong>
+                <input type="text" name="address" value="{{ $customer->address }}" class="form-control" >
             @error('address')
-            <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-        <strong>Type:</strong>
-            <input type="text" name="type" value="{{ $user->type }}" class="form-control" placeholder="Type">
-            @error('type')
-            <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-        <strong>Email</strong>
-            <input type="email" name="email" value="{{ $user->email }}" class="form-control" placeholder="Email Address">
+            <strong>Email</strong>
+                <input type="email" name="email" value="{{ $customer->email }}" class="form-control" >
             @error('email')
-            <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Password</strong>
+                <input type="password" name="password" value="{{ $customer->password }}" class="form-control" >
+            @error('password')
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>

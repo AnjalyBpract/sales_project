@@ -6,14 +6,23 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 </head>
 <body>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 <div class="container mt-2">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Products</h2>
+                <h2>Edit Vendor</h2>
             </div>
             <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('products.index') }}" enctype="multipart/form-data"> Back</a>
+            <a class="btn btn-primary" href="{{ route('vendors.index') }}" enctype="multipart/form-data"> Back</a>
             </div>
         </div>
     </div>
@@ -22,26 +31,25 @@
                 {{ session('status') }}
             </div>
         @endif
-    <form action="{{ route('products.update',$product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('vendors.update',$vendor->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name:</strong>
-                <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="Company name">
+                <input type="text" name="name" value="{{ $vendor->name }}" class="form-control" placeholder="Company name">
             @error('name')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
-    
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Purchase Price</strong>
-                <input type="text" name="purchase_price" value="{{ $product->purchase_price }}" class="form-control" placeholder="Purchase Price">
-            @error('purchase_price')
+            <strong>Address</strong>
+                <input type="text" name="address" value="{{ $vendor->address }}" class="form-control" >
+            @error('address')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -50,23 +58,23 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Sale Price</strong>
-                <input type="text" name="sale_price" value="{{ $product->sale_price }}" class="form-control" placeholder="Sale Price">
-            @error('sale_price')
+            <strong>Email</strong>
+                <input type="email" name="email" value="{{ $vendor->email }}" class="form-control" >
+            @error('email')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
 
-
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-        <textarea class="form-control" name="description"  id="exampleFormControlTextarea1" rows="4">{{ $product->description }}</textarea>
-
-</div>
+        <div class="form-group">
+            <strong>Password</strong>
+                <input type="password" name="password" value="{{ $vendor->password }}" class="form-control" >
+            @error('password')
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
     </div>
-
-
 <div>
     <div class="mt-3 form-check form-check-inline">
         <input class="form-check-input" type="radio" name="active" id="inlineRadio1" value="1" checked>
