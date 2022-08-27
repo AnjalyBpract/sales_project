@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
+                    <strong>Product Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder="Name">
                         @error('name')
                         <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
@@ -55,19 +55,35 @@
     </div>
 </div>
 
-<div class="col-xs-12 col-sm-12 col-md-12">
-    <strong>Product Category:</strong>
-    <select class="form-control" aria-label="Default select example" name="product_category_id">
-        @foreach($data as $item)
-            <option value= "{{$item->id}}" >{{$item->name}}</option>
-        @endforeach
-      </select>
-    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <strong>Product Category:</strong>
+            <select class="form-control" aria-label="Default select example" name="product_category_id">
+                @foreach($data as $item)
+                    <option value= "{{$item->id}}" >{{$item->name}}</option>
+                @endforeach
+            </select>
+            </div>
+{{--
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                <strong>Product Category:</strong>
+                <label for="product_category_id"></label>
+                  <select name="product_category_id" id="product_category_id" class="form-control">
+                    <option value="">select category</option>
+                    @foreach (App\Models\Product_category::pluck('name','id') as $id => $name)
+
+                    <option value="{{ $id}}">{{ $name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                </div> --}}
+
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Description</strong>
             <label for="exampleFormControlTextarea1" class="form-label"></label>
             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="4"></textarea>
+
         </div>
 
             <div>

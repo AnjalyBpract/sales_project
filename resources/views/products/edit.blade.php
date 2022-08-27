@@ -35,7 +35,8 @@
             @enderror
         </div>
     </div>
-    
+
+
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -65,7 +66,6 @@
 
 </div>
     </div>
-
 
 <div>
     <div class="mt-3 form-check form-check-inline">

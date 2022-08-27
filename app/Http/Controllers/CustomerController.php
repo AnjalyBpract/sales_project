@@ -49,14 +49,6 @@ class CustomerController extends Controller
 
     public function update(Request $request, User $customer)
     {
-        $request->validate([
-
-            'password' => 'required',
-            'email' => 'required',
-            'name' => 'required',
-            'address' => 'required',
-            'active' => 'required'
-        ]);
 
         $customer->update($request->all());
 

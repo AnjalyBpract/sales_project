@@ -15,14 +15,12 @@
 <body>
 <div class ="container mt-3">
     <div class="row">
-
         <div class="col-md-2">
             <a href="{{ url('/vendors') }}" class="btn btn-outline-primary">Vendor</a>
         </div>
         <div class="col-md-2">
             <a href="{{ url('/customers') }}" class="btn btn-outline-primary">Customer</a>
         </div>
-
         <div class="col-md-2">
             <a href="{{ url('/product_categories') }}" class="btn btn-outline-primary">Product Category</a>
         </div>
@@ -30,12 +28,9 @@
         <div class="col-md-2">
             <a href="{{ url('/products') }}" class="btn btn-outline-primary">Product</a>
         </div>
-
-
         <div class="col-md-2">
-            <a href="{{ url('/transactions') }}" class="btn btn-outline-primary">Sales</a>
+            <a href="{{ url('/sales') }}" class="btn btn-outline-primary">Sales</a>
         </div>
-    </div>
     </div>
 </div>
 </body>

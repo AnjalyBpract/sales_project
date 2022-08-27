@@ -14,6 +14,10 @@
                 </div>
                 <div class="mb-2 pull-right">
                     <a class="btn btn-success" href="{{ route('vendors.create') }}"> Create Vendor</a>
+
+                    <div class="mb-2 text-right col-md-16 bg-light">
+                        <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>
+
                 </div>
             </div>
         </div>

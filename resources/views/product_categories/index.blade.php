@@ -8,11 +8,14 @@
 <div class="container mt-2">
         <div class="row">
             <div class="col-lg-12 margin-tb">
+
                     <div class="pull-left">
                     <h2>Add Product Category</h2>
                     </div>
                     <div class="mb-2 pull-right">
-                    <a class="btn btn-success" href="{{ route('product_categories.create') }}"> Create Users</a>
+                    <a class="btn btn-success" href="{{ route('product_categories.create') }}"> Create Product Category</a>
+                    <div class="mb-2 text-right col-md-16 bg-light">
+                        <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>
             </div>
         </div>
     </div>
@@ -24,8 +27,8 @@
     <table class="table table-bordered">
     <tr>
         <th>S.No</th>
-        <th>Name</th>
-        <th>Description</th>
+        <th> Category Name</th>
+        <th> Category Description</th>
         <th>Active</th>
         <th width="280px">Action</th>
     </tr>
@@ -38,6 +41,7 @@
 
                 <td>
                 <form action="{{ route('product_categories.destroy',$product_category->id) }}" method="Post">
+
                     <a class="btn btn-primary" href="{{ route('product_categories.edit',$product_category->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')

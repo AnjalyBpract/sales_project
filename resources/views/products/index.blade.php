@@ -12,8 +12,12 @@
                     <h2>Add Product</h2>
                     </div>
                     <div class="mb-2 pull-right">
-                    <a class="btn btn-success" href="{{ route('products.create') }}"> Create Users</a>
-            </div>
+                    <a class="btn btn-success" href="{{ route('products.create') }}"> Create Product</a>
+
+            <div class="mb-2 text-right col-md-16 bg-light">
+                <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>
+
+        </div>
         </div>
     </div>
         @if ($message = Session::get('success'))
@@ -24,22 +28,25 @@
     <table class="table table-bordered">
     <tr>
         <th>S.No</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Prchase Price</th>
-        <th>Sale Price</th>
-        <th>Product Category Id</th>
+        <th>Product Category </th>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Product Prchase Price</th>
+        <th>Product Sale Price</th>
+
         <th>Active</th>
         <th width="280px">Action</th>
     </tr>
-            @foreach ($products as $product)
+        @foreach ($datas as $item)
+            @foreach ($item->products as $product)
                 <tr>
                 <td>{{ $product->id }}</td>
-                <td>{{ $product->name }}</td>
+                <td>{{ $item->name}}</td>
+                <td>{{ $product->name}}</td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->purchase_price }}</td>
                 <td>{{ $product->sale_price }}</td>
-                <td>{{ $product->product_category_id }}</td>
+                {{-- <td>{{ $product->product_category_name }}</td> --}}
                 <td>@if($product->active == 1)active @else not in active @endif</td>
                 <td>
                 <form action="{{ route('products.destroy',$product->id) }}" method="Post">
@@ -49,9 +56,10 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 </td>
-    </tr>
+             </tr>
+            @endforeach
             @endforeach
 </table>
-{!! $products->links() !!}
+
 </body>
 </html>

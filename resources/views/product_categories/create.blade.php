@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
+                    <strong>Category Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder="Name">
                         @error('name')
                         <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <label for="exampleFormControlTextarea1" class="form-label"> Category Description</label>
             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="4"></textarea>
         </div>
 

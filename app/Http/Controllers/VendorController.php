@@ -49,14 +49,6 @@ class VendorController extends Controller
 
     public function update(Request $request, User $vendor)
     {
-        $request->validate([
-
-            'password' => 'required',
-            'email' => 'required',
-            'name' => 'required',
-            'address' => 'required',
-            'active' => 'required'
-        ]);
 
         $vendor->update($request->all());
 

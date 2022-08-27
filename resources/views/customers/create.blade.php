@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="mb-2 pull-left">
-                    <h2>Add Vendor</h2>
+                    <h2>Add Customer</h2>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-primary" href="{{ route('customers.index') }}"> Back</a>
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Name:</strong>
+                        <strong> Customer Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder=" Name">
                         {{-- @if ($errors->has('title'))
                         <span class="text-danger">{{ $errors->first('title') }}</span>
@@ -48,7 +48,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Address:</strong>
+                        <strong>Customer Address:</strong>
                         <input type="text" name="address" class="form-control" placeholder=" Address">
                         @error('address')
                         <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
@@ -64,7 +64,7 @@
                         @enderror
                     </div>
                 </div>
-                <div>
+
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Password </strong>
@@ -75,6 +75,7 @@
                         </div>
                     </div>
                     <div>
+                    <strong>Customer Active </strong>
                     <div class="mt-3 form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="active" id="inlineRadio1" value="1" checked>
                     <label class="form-check-label" for="inlineRadio1">Active</label>
@@ -84,9 +85,8 @@
                     <label class="form-check-label" for="inlineRadio2">Not Active</label>
                   </div>
                 </div>
-                <button type="submit" class="ml-3 btn btn-primary">Submit</button>
             </div>
-
+            <button type="submit" class="ml-3 btn btn-primary">Submit</button>
         </form>
     </div>
 </body>

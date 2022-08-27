@@ -9,10 +9,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                    <h2>User Registration</h2>
+                    <h2>Sale Registration</h2>
                     </div>
                     <div class="mb-2 pull-right">
-                    <a class="btn btn-success" href="{{ route('transactions.create') }}"> Create Transactions</a>
+                    <a class="btn btn-success" href="{{ route('sales.create') }}"> Create Sale</a>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
     <table class="table table-bordered">
     <tr>
         <th>S.No</th>
-        <th>Date</th>
+        {{-- <th>Date</th> --}}
         <th>Product Category</th>
         <th>Product</th>
         <th>Transaction Type</th>
@@ -35,13 +35,13 @@
 
         <th width="280px">Action</th>
     </tr>
-            @foreach ($transactions as $transaction)
+            @foreach ($sales as $sale)
                 <tr>
                 <td>{{ $transaction->id }}</td>
-                <td>{{ $transaction->date }}</td>
+                {{-- <td>{{ $transaction->date }}</td> --}}
                 <td>{{ $transaction->product_category_id }}</td>
                 <td>{{ $transaction->product_id }}</td>
-                <td>{{ $transaction->trasation_type }}</td>
+                <td>{{ $transaction->type }}</td>
                 <td>{{ $transaction->user_id }}</td>
                 <td>{{ $transaction->quantity }}</td>
                 <td>{{ $transaction->rate }}</td>
@@ -49,8 +49,8 @@
                 {{-- <td>@if($user->active == 1)active @else not in active @endif</td> --}}
 
                 <td>
-                <form action="{{ route('transactions.destroy',$transaction->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('transactions.edit',$transaction->id) }}">Edit</a>
+                <form action="{{ route('sales.destroy',$sale->id) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ route('sales.edit',$sale->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -59,6 +59,6 @@
     </tr>
             @endforeach
 </table>
-{!! $transactions->links() !!}
+{!! $sales->links() !!}
 </body>
 </html>

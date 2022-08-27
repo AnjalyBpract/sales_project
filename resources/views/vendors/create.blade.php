@@ -64,7 +64,7 @@
                         @enderror
                     </div>
                 </div>
-                <div>
+
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Password </strong>
@@ -84,9 +84,9 @@
                     <label class="form-check-label" for="inlineRadio2">Not Active</label>
                   </div>
                 </div>
-                <button type="submit" class="ml-3 btn btn-primary">Submit</button>
-            </div>
 
+            </div>
+            <button type="submit" class="ml-3 btn btn-primary">Submit</button>
         </form>
     </div>
 </body>

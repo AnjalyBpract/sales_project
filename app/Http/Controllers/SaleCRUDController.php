@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction;
+use App\Models\Sale;
 use App\Models\Product_category;
 use App\Models\Product;
 use App\Models\User;
@@ -12,102 +12,61 @@ class SaleCRUDController extends Controller
 
     public function index()
     {
-    $data['transactions'] = Transaction::orderBy('id','desc')->paginate(5);
-    return view('transactions.index', $data);
+    $sales= Sale::orderBy('id','desc')->paginate(5);
+    return view('sales.index', compact('sales'));
     }
 
     public function create()
     {
-        $data = User::get();
-
-        return view('transactions.create',compact('data'));
+    //   $data = Product_category::with('products')->get();
+    $data = User::get();
+    return view('sales.create',compact('data'));
     }
-
-    public function fetchProduct_category(Request $request)
-    {
-        $data['product_categories'] = Product_category::where("user_id", $request->user_id)
-                                ->get(["name", "id"]);
-
-        return response()->json($data);
-    }
-
-
-    public function fetchProduct(Request $request)
-    {
-        $data['products'] = Product::where("product_category_id", $request->product_category_id)
-                                ->get(["name", "id"]);
-
-        return response()->json($data);
-    }
-
 
     public function store(Request $request)
     {
+        //  return $request->all();
     $request->validate([
+
     'date' => 'required',
     'product_category_id' => 'required',
-    'product_id' => 'required',
-    'trasation_type' => 'required',
-    'user_id' => 'required',
-    'quantity' => 'required',
-    'rate' => 'required',
-    'amount' => 'required'
-
+    'product_id'=> 'required',
+    'type'=> 'required',
+    'user_id'=> 'required',
+    'quantity'=> 'required',
+    'rate'=> 'required',
+    'amount'=> 'required',
     ]);
-    $transaction = new Transaction;
-    $transaction->date = $request->emdateail;
-    $transaction->product_category_id = $request->product_category_id;
-    $transaction->product_id = $request->product_id;
-    $transaction->trasation_type = $request->trasation_type;
-    $transaction->user_id = $request->user_id;
-    $transaction->quantity = $request->quantity;
-    $transaction->rate = $request->rate;
-    $transaction->amount = $request->amount;
 
-    $transaction->save();
-    return redirect()->route('transactions.index')
-    ->with('success','Transation has been created successfully.');
+    Sale::create($request->all());
+
+    return redirect()->route('sales.index')->with('success','Sales has been created successfully.');
     }
 
-    public function edit(Transaction $transaction)
+    public function edit(Sale $sale)
     {
-    return view('transactions.edit',compact('transaction'));
+    return view('sales.edit',compact('sale'));
+    }
+
+    public function update(Request $request,Sale $sale)
+    {
+
+    $sale->update($request->all());
+
+    return redirect()->route('sales.index')->with('success','Sale Has Been updated successfully');
     }
 
 
-    public function update(Request $request, $id)
+    public function destroy(Sale $sale)
     {
-    $request->validate([
-
-        'date' => 'required',
-        'product_category_id' => 'required',
-        'product_id' => 'required',
-        'trasation_type' => 'required',
-        'user_id' => 'required',
-        'quantity' => 'required',
-        'rate' => 'required',
-        'amount' => 'required'
-    ]);
-    $transaction = Transaction::find($id);
-
-    $transaction->date = $request->emdateail;
-    $transaction->product_category_id = $request->product_category_id;
-    $transaction->product_id = $request->product_id;
-    $transaction->trasation_type = $request->trasation_type;
-    $transaction->user_id = $request->user_id;
-    $transaction->quantity = $request->quantity;
-    $transaction->rate = $request->rate;
-    $transaction->amount = $request->amount;
-    $transaction->save();
-
-    return redirect()->route('transactions.index')
-    ->with('success','Transactions Has Been updated successfully');
+    $sale->delete();
+     return redirect()->route('sales.index')->with('success','Sales  has been deleted successfully');
     }
 
-    public function destroy(Transaction $transaction)
+    public function product(Request $request)
     {
-    $transaction->delete();
-    return redirect()->route('transactions.index')
-    ->with('success','Transactions has been deleted successfully');
+    $product_category=$request->product_category;
+   $products=Product::where('product_category_id',$product_category)->get();
+   return view('sales.product',compact('products'))
     }
 }

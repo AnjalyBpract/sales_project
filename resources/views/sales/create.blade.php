@@ -14,7 +14,7 @@
                         <h2>Add Sales</h2>
                     </div>
                      <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('transactions.index') }}"> Back</a>
+                    <a class="btn btn-primary" href="{{ route('sales.index') }}"> Back</a>
                     </div>
              </div>
             </div>
@@ -23,10 +23,10 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <form action="{{ route('transactions.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('sales.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="row">
-            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Date:</strong>
                         <input type="date" name="date" class="form-control" >
@@ -34,10 +34,10 @@
                         <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
                      @enderror
             </div>
-        </div> --}}
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        </div>
+         <div class="col-xs-12 col-sm-12 col-md-12">
             <strong> Transation Type</strong>
-            <select class="form-control" aria-label="Default select example" name="transaction_type">
+            <select class="form-control" aria-label="Default select example" name="type">
                 <option selected>select type</option>
                 <option value="1">Sale </option>
                 <option value="2">Purchase</option>
@@ -80,7 +80,7 @@
 
  --}}
 
-    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Quantity</strong>
                 <input type="text" name="quantity" class="form-control" placeholder="Quantity">
@@ -88,7 +88,7 @@
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
              @enderror
     </div>
-</div> --}}
+</div>
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
         <strong>Amount</strong>
@@ -105,67 +105,75 @@
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
-        /*------------------------------------------
-        --------------------------------------------
-        Country Dropdown Change Event
-        --------------------------------------------
-        --------------------------------------------*/
-        $('#user-dropdown').on('change', function () {
-            var idUser = this.value;
-            $("#product_category-dropdown").html('');
-            $.ajax({
-                url: "{{url('api/fetch-product_categories')}}",
-                type: "POST",
-                data: {
-                    user_id: idUser,
-                    _token: '{{csrf_token()}}'
-                },
-                dataType: 'json',
-                success: function (result) {
-                    $('#product_category-dropdown').html('<option value="">-- Select product_category --</option>');
-                    $.each(result.product_categories, function (key, value) {
-                        $("#product_category-dropdown").append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
-                    });
-                    $('#product-dropdown').html('<option value="">-- Select product --</option>');
-                }
-            });
+
+<script type="text/javascript">
+
+$(document).ready(function ($) {
+$("#product_category_id").click(function(e) {
+    // console.log(1);
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
         });
+e.preventDefault();
 
-        /*------------------------------------------
-        --------------------------------------------
-        State Dropdown Change Event
-        --------------------------------------------
-        --------------------------------------------*/
-        $('#product_category-dropdown').on('change', function () {
-            var idState = this.value;
-            $("#product-dropdown").html('');
-            $.ajax({
-                url: "{{url('api/fetch-products')}}",
-                type: "POST",
-                data: {
-                    product_id: idProduct,
-                    _token: '{{csrf_token()}}'
-                },
-                dataType: 'json',
-                success: function (res) {
-                    $('#product-dropdown').html('<option value="">-- Select product --</option>');
-                    $.each(res.products, function (key, value) {
-                        $("#product-dropdown").append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
-                    });
-                }
-            });
-        });
+var product_category_id =  $(this).val();
+$.ajax({
+url:"{{ route('get_product') }}",
+dataType:'html',
+type:"POST",
+data: { product_category_id: product_category_id},
 
-    });
+success:function (data) {
+//   console.log(data);
+    $("#product_id").html(data);
+
+},
+error:function (data) {
+    $("#product_id").html('There was an error please contact administrator');
+
+},
+})
+});
+});
 </script>
 
 
 
+<script type="text/javascript">
+
+$(document).ready(function ($) {
+$("#product_id").click(function(e) {
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+e.preventDefault();
+
+var product_id =  $(this).val();
+$.ajax({
+url:"{{ route('get_price') }}",
+dataType:'json',
+type:"POST",
+data: { product_id: product_id},
+success: function(res) {
+    console.log(res);
+    var x = res;
+  $("#pirce_id").val(x);
+
+
+}
+
+})
+});
+});
+</script>
 </div>
 </body>
 </html>

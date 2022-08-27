@@ -28,14 +28,10 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-
-// Route::resource('vendors', VendorCRUDController::class);
-Route::resource('product_categories', Product_categoryCURDController::class);
-Route::resource('products', ProductCRUDController::class);
-Route::resource('transactions', SaleCRUDController::class);
-
-Route::post('api/fetch-product_categories',[SaleCRUDController::class, 'fetchProduct_category']);
-
-
 Route::resource('vendors', VendorController::class);
 Route::resource('customers', CustomerController::class);
+Route::resource('product_categories', Product_categoryCURDController::class);
+ Route::resource('products', ProductCRUDController::class);
+Route::resource('/sales', SaleCRUDController::class);
+
+// Route::post('api/fetch-product_categories',[SaleCRUDController::class, 'fetchProduct_category']);
