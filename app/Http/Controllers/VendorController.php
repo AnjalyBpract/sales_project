@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 class VendorController extends Controller
 {
     public function index()
@@ -33,7 +34,9 @@ class VendorController extends Controller
             'active' => 'required'
         ]);
 
-
+        $request['type']= 'vendor';
+        $today = Carbon::today();
+        $request['date'] = $today;
 
         User::create($request->all());
 

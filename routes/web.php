@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Product_categoryCURDController;
 use App\Http\Controllers\ProductCRUDController;
 use App\Http\Controllers\SaleCRUDController;
+use App\Http\Controllers\PurchaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,4 +35,13 @@ Route::resource('product_categories', Product_categoryCURDController::class);
  Route::resource('products', ProductCRUDController::class);
 Route::resource('/sales', SaleCRUDController::class);
 
-// Route::post('api/fetch-product_categories',[SaleCRUDController::class, 'fetchProduct_category']);
+ Route::post('/get_product',[SaleCRUDController::class, 'product'])->name('get_product');;
+ Route::post('/get_rate',[SaleCRUDController::class,'rate'])->name('get_rate');
+
+
+ Route::resource('purchases', PurchaseController::class);
+ Route::post('/get_product',[PurchaseController::class, 'product'])->name('get_product');;
+ Route::post('/get_rate',[PurchaseController::class,'rate'])->name('get_rate');
+
+
+

@@ -16,6 +16,7 @@
 <div class ="container mt-3">
     <div class="row">
         <div class="col-md-2">
+
             <a href="{{ url('/vendors') }}" class="btn btn-outline-primary">Vendor</a>
         </div>
         <div class="col-md-2">
@@ -31,8 +32,13 @@
         <div class="col-md-2">
             <a href="{{ url('/sales') }}" class="btn btn-outline-primary">Sales</a>
         </div>
+
+        <div class="col-md-2">
+            <a href="{{ url('/purchases') }}" class="btn btn-outline-primary">Purchase</a>
+        </div>
     </div>
 </div>
+
 </body>
 </head>
 </html>

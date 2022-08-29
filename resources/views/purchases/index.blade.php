@@ -9,10 +9,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                    <h2>Sale Registration</h2>
+                    <h2>Purchase Registration</h2>
                     </div>
                     <div class="mb-2 pull-right">
-                    <a class="btn btn-success" href="{{ route('sales.create') }}"> Create Sale</a>
+                    <a class="btn btn-success" href="{{ route('purchases.create') }}"> Create Purchase</a>
                     <div class="mb-2 text-right col-md-16 bg-light">
                         <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>
             </div>
@@ -38,23 +38,23 @@
 
         <th width="280px">Action</th>
     </tr>
-            @foreach ($sales as $sale)
+            @foreach ($purchases as $purchase)
            {{-- {{ dd( $sale)}} --}}
                 <tr>
                 {{-- <td>{{ $sale->id }}</td> --}}
-                <td>{{ $sale->id}}</td>
-                <td>{{ $sale->product_category_id }}</td>
-                <td>{{ $sale->product_id }}</td>
-                <td>{{ $sale->type }}</td>
-                <td>{{ $sale->user_id }}</td>
-                <td>{{ $sale->quantity }}</td>
-                <td>{{ $sale->rate }}</td>
-                <td>{{ $sale->total_amount }}</td>
+                <td>{{ $purchase->id}}</td>
+                <td>{{ $purchase->product_category_id }}</td>
+                <td>{{ $purchase->product_id }}</td>
+                <td>{{ $purchase->type }}</td>
+                <td>{{ $purchase->user_id }}</td>
+                <td>{{ $purchase->quantity }}</td>
+                <td>{{ $purchase->rate }}</td>
+                <td>{{ $purchase->total_amount }}</td>
                 {{-- <td>@if($user->active == 1)active @else not in active @endif</td> --}}
 
                 <td>
-                <form action="{{ route('sales.destroy',$sale->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('sales.edit',$sale->id) }}">Edit</a>
+                <form action="{{ route('purchases.destroy',$purchase->id) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ route('purchases.edit',$purchase->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -63,6 +63,6 @@
     </tr>
             @endforeach
 </table>
-{!! $sales->links() !!}
+{!! $purchases->links() !!}
 </body>
 </html>

@@ -1,12 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-{{-- <title>Edit Company Form - Laravel 8 CRUD Tutorial</title> --}}
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+{{-- <title>Add Company Form - Laravel 8 CRUD</title> --}}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 </head>
-<body>
-    @if ($errors->any())
+
+    <div class="container mt-2">
+            <div class="row">
+                <div class="col-lg-12 margin-tb">
+                    <div class="mb-2 pull-left">
+                        <h2>Add Purchase</h2>
+                    </div>
+                     <div class="pull-right">
+                    <a class="btn btn-primary" href="{{ route('purchases.index') }}"> Back</a>
+                    </div>
+             </div>
+            </div>
+            @if(session('status'))
+                <div class="mt-1 mb-1 alert alert-success">
+                    {{ session('status') }}
+                </div>
+
+            @endif
+            @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -14,26 +33,10 @@
             @endforeach
         </ul>
     </div>
-    @endif
-<div class="container mt-2">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Sale</h2>
-            </div>
-            <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('sales.index') }}" enctype="multipart/form-data"> Back</a>
-            </div>
-        </div>
-    </div>
-        @if(session('status'))
-            <div class="mt-1 mb-1 alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-    <form action="{{ route('sales.update',$sale->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+@endif
+            <form action="{{ route('purchases.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
         {{-- <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
@@ -47,20 +50,19 @@
         {{-- <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Type</strong>
-                    <input type="text" name="type" value="{{ $sale->type }}" class="form-control" >
+                <input type="text" name="type" class="form-control" placeholder="Type" value="{{ $sale->type }}">
                 @error('type')
-                    <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
         </div> --}}
 
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <strong>Type</strong>
+        <strong>User Type</strong>
         <select class="form-control" aria-label="Default select example" name="user_id"  id="user_id">
             @foreach($data as $item)
-            <option value= "{{ $item->id }}"{{($item->id == $sale->user_id) ? 'selected' :'' }} >{{$item->name}}</option>
-        @endforeach
-      </select>
+                <option value= "{{$item->id}}" >{{$item->name}}</option>
+            @endforeach
           </select>
         </div>
 
@@ -69,9 +71,9 @@
                   <strong>Product Category</strong>
                       <label for="product_category_id"></label>
                       <select name="product_category_id" id="product_category_id" class="form-control">
-                        @foreach($datass as $item)
-                        <option value= "{{ $item->id }}"{{($item->id == $sale->product_category_id) ? 'selected' :'' }} >{{$item->name}}</option>
-                    @endforeach
+                      @foreach($datas as $item)
+                      <option value= "{{$item->id}}" >{{$item->name}}</option>
+                  @endforeach
                 </select>
                     </div>
                   </div>
@@ -80,36 +82,37 @@
                     <div class="form-group">
                       <strong>Product Name:</strong>
                           <label for="product_id"></label>
-                            <select name="product_id" id="product_category_id" class="form-control">
-                                @foreach($datas as $item)
-                                <option value= "{{ $item->id }}"{{($item->id == $sale->product_id) ? 'selected' :'' }} >{{$item->name}}</option>
-                            @endforeach
-                            </select>
-                            </div>
+                          <select name="product_id" id="product_id" class="form-control"></select>
+                        </div>
                       </div>
-
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Quantity</strong>
-                <input type="text" name="quantity" value="{{ $sale->quantity }}" class="form-control" >
-            @error('quantity')
+                <input type="text" name="quantity" class="form-control" placeholder="Quantity">
+                @error('quantity')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
-            @enderror
+             @enderror
         </div>
     </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Rate</strong>
+                        <input type="text" name="rate" class="form-control" id="rate_id" placeholder="Rate">
+                        @error('rate')
+                        <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                    @enderror
+            </div>
+            </div>
 
-
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Total Amount</strong>
-                <input type="text" name="total_amount" value="{{ $sale->total_amount }}" class="form-control" >
-            @error('total_amount')
-                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Total Amount</strong>
+                        <input type="text" name="total_amount" class="form-control" id="total_amount" placeholder="Total Amount">
+                        @error('total_amount')
+                        <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                    @enderror
+            </div>
+            </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <button type="submit" class="ml-3 btn btn-primary">Submit</button>

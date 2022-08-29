@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
+use App\Models\Purchase;
 use App\Models\Product_category;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
-class SaleCRUDController extends Controller
+class PurchaseController extends Controller
 {
-
     public function index()
     {
 
-    $sales= Sale::orderBy('id','desc')->paginate(5);
-    return view('sales.index', compact('sales'));
+    $purchases= Purchase::orderBy('id','desc')->paginate(5);
+    return view('purchases.index', compact('purchases'));
     }
 
     public function create()
     {
     $datas = Product_category::get();
     $data = User::get();
-    return view('sales.create',compact('data','datas'));
+    return view('purchases.create',compact('data','datas'));
     }
 
     public function store(Request $request)
@@ -33,61 +32,59 @@ class SaleCRUDController extends Controller
 
     'product_category_id' => 'required',
     'product_id'=> 'required',
-
     'user_id'=> 'required',
     'quantity'=> 'required',
     'rate'=> 'required',
     'total_amount'=> 'required',
     ]);
 
-    $request['type']= 'customer';
+    $request['type']= 'vendor';
     $today = Carbon::today();
     $request['date'] = $today;
 
-    Sale::create($request->all());
+    Purchase::create($request->all());
 
-    return redirect()->route('sales.index')->with('success','Sales has been created successfully.');
+    return redirect()->route('purchases.index')->with('success','Sales has been created successfully.');
 
     }
 
-    public function edit(Sale $sale)
+    public function edit(Purchase $purchase)
     {
-       
+
          $datas=Product::get();
          $datass=Product_category::get();
-        $data=User::where('type','customer')->get();
+        $data=User::where('type','vendor')->get();
 //  dd($data);
-      return view('sales.edit',compact('sale','datas','data','datass'));
+      return view('purchases.edit',compact('purchase','datas','data','datass'));
 
     }
 
-    public function update(Request $request,Sale $sale)
+    public function update(Request $request,Purchase $purchase)
     {
 
-    $sale->update($request->all());
+    $purchase->update($request->all());
 
-    return redirect()->route('sales.index')->with('success','Sale Has Been updated successfully');
+    return redirect()->route('purchases.index')->with('success','Purchase Has Been updated successfully');
     }
 
 
-    public function destroy(Sale $sale)
+    public function destroy(Purchase $purchase)
     {
-    $sale->delete();
-     return redirect()->route('sales.index')->with('success','Sales  has been deleted successfully');
+    $purchase->delete();
+     return redirect()->route('purchases.index')->with('success','Purchase  has been deleted successfully');
     }
 
     public function product(Request $request)
     {
     $product_category=$request->product_category;
    $products=Product::where('product_category_id',$product_category)->get();
-   return view('sales.product',compact('products'));
+   return view('purchases.product',compact('products'));
     }
 
     public function rate(Request $request)
     {
         $product_id=$request->product_id;
-        $rate = Product::where('id',$product_id)->value('sale_price');
+        $rate = Product::where('id',$product_id)->value('purchase_price');
         return response()->json($rate);
     }
-
 }

@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 {{-- <title>Add Company Form - Laravel 8 CRUD</title> --}}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 </head>
@@ -22,10 +23,21 @@
                 <div class="mt-1 mb-1 alert alert-success">
                     {{ session('status') }}
                 </div>
+
             @endif
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
             <form action="{{ route('sales.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <div class="row">
+
+        {{-- <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Date:</strong>
@@ -34,16 +46,16 @@
                         <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
                      @enderror
             </div>
-        </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
-            <strong> Transation Type</strong>
-            <select class="form-control" aria-label="Default select example" name="type">
-                <option selected>select type</option>
-                <option value="1">Sale </option>
-                <option value="2">Purchase</option>
-              </select>
+        </div> --}}
+        {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Type</strong>
+                <input type="text" name="type" class="form-control" placeholder="Type" value="{{ $sale->type }}">
+                @error('type')
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
-
+        </div> --}}
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <strong>User Type</strong>
@@ -58,7 +70,11 @@
                 <div class="form-group">
                   <strong>Product Category</strong>
                       <label for="product_category_id"></label>
-                      <select name="product_category_id" id="product_category-dropdown" class="form-control"></select>
+                      <select name="product_category_id" id="product_category_id" class="form-control">
+                      @foreach($datas as $item)
+                      <option value= "{{$item->id}}" >{{$item->name}}</option>
+                  @endforeach
+                </select>
                     </div>
                   </div>
 
@@ -66,20 +82,9 @@
                     <div class="form-group">
                       <strong>Product Name:</strong>
                           <label for="product_id"></label>
-                          <select name="product_id" id="product-dropdown" class="form-control"></select>
+                          <select name="product_id" id="product_id" class="form-control"></select>
                         </div>
                       </div>
-{{--
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                      <strong>Rate</strong>
-                          <label for="product_id"></label>
-                          <select name="product_id" id="rate-dropdown" class="form-control"></select>
-                        </div>
-                      </div>
-
- --}}
-
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Quantity</strong>
@@ -87,22 +92,32 @@
                 @error('quantity')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
              @enderror
+        </div>
     </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="form-group">
-        <strong>Amount</strong>
-            <input type="text" name="rate" class="form-control" placeholder="Amount">
-            @error('amount')
-            <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
-         @enderror
-</div>
-</div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Rate</strong>
+                        <input type="text" name="rate" class="form-control" id="rate_id" placeholder="Rate">
+                        @error('rate')
+                        <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                    @enderror
+            </div>
+            </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
-    <button type="submit" class="ml-3 btn btn-primary">Submit</button>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Total Amount</strong>
+                        <input type="text" name="total_amount" class="form-control" id="total_amount" placeholder="Total Amount">
+                        @error('total_amount')
+                        <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+                    @enderror
+            </div>
+            </div>
 
-</form>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <button type="submit" class="ml-3 btn btn-primary">Submit</button>
+
+            </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -126,7 +141,7 @@ $.ajax({
 url:"{{ route('get_product') }}",
 dataType:'html',
 type:"POST",
-data: { product_category_id: product_category_id},
+data: { product_category: product_category_id},
 
 success:function (data) {
 //   console.log(data);
@@ -158,14 +173,14 @@ e.preventDefault();
 
 var product_id =  $(this).val();
 $.ajax({
-url:"{{ route('get_price') }}",
+url:"{{ route('get_rate') }}",
 dataType:'json',
 type:"POST",
 data: { product_id: product_id},
 success: function(res) {
     console.log(res);
     var x = res;
-  $("#pirce_id").val(x);
+  $("#rate_id").val(x);
 
 
 }

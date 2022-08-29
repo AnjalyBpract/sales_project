@@ -13,7 +13,7 @@
                     <h2>Customer Registration</h2>
                 </div>
                 <div class="mb-2 pull-right">
-                    <a class="btn btn-success" href="{{ route('customers.create') }}"> Create Vendor</a>
+                    <a class="btn btn-success" href="{{ route('customers.create') }}"> Create Customer</a>
 
                     <div class="mb-2 text-right col-md-16 bg-light">
                         <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>

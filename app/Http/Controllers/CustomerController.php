@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 class CustomerController extends Controller
 {
     public function index()
@@ -33,7 +34,9 @@ class CustomerController extends Controller
             'active' => 'required'
         ]);
 
-
+        $request['type']= 'customer';
+        $today = Carbon::today();
+        $request['date'] = $today;
 
         User::create($request->all());
 
