@@ -7,6 +7,7 @@ use App\Http\Controllers\Product_categoryCURDController;
 use App\Http\Controllers\ProductCRUDController;
 use App\Http\Controllers\SaleCRUDController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ProfitReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,5 +44,17 @@ Route::resource('/sales', SaleCRUDController::class);
  Route::post('/get_product',[PurchaseController::class, 'product'])->name('get_product');;
  Route::post('/get_rate',[PurchaseController::class,'rate'])->name('get_rate');
 
+// Route::post('/get')
+
+
+
+// Route::get('/profit', function () {
+//     return view('profitreport.create');
+// });
+
+Route::get('/profitreport',[ProfitReportController::class,'index'])->name('profitreport');
+
+Route::get('/report',[ProfitReportController::class,'report'])->name('report');
+// Route::post('/profitreport',[ProfitReportController::class,'report']);
 
 

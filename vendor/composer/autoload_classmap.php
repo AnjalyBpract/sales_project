@@ -20,6 +20,7 @@ return array(
     'App\\Http\\Controllers\\CustomerController' => $baseDir . '/app/Http/Controllers/CustomerController.php',
     'App\\Http\\Controllers\\ProductCRUDController' => $baseDir . '/app/Http/Controllers/ProductCRUDController.php',
     'App\\Http\\Controllers\\Product_categoryCURDController' => $baseDir . '/app/Http/Controllers/Product_categoryCURDController.php',
+    'App\\Http\\Controllers\\ProfitReportController' => $baseDir . '/app/Http/Controllers/ProfitReportController.php',
     'App\\Http\\Controllers\\PurchaseController' => $baseDir . '/app/Http/Controllers/PurchaseController.php',
     'App\\Http\\Controllers\\SaleCRUDController' => $baseDir . '/app/Http/Controllers/SaleCRUDController.php',
     'App\\Http\\Controllers\\VendorController' => $baseDir . '/app/Http/Controllers/VendorController.php',

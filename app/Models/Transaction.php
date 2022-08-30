@@ -9,13 +9,13 @@ class Transaction extends Model
 {
     protected $fillable = [
         'date',
-       'product_category_id',
-        'product_id',
-        'trasation_type',
-        'user_id',
-        'quantity',
-        'rate',
-        'amount'
+        'product_category_id',
+         'product_id',
+         'type',
+         'user_id',
+         'quantity',
+         'rate',
+         'total_amount'
     ];
 }
 

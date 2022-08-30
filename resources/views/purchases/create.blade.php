@@ -88,12 +88,13 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Quantity</strong>
-                <input type="text" name="quantity" class="form-control" placeholder="Quantity">
+                <input type="text" name="quantity" class="form-control" placeholder="Quantity" id="quantity_id">
                 @error('quantity')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
              @enderror
         </div>
     </div>
+ 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Rate</strong>
@@ -188,6 +189,16 @@ success: function(res) {
 })
 });
 });
+$("#quantity_id").keyup(function(){
+    var qty= $(this).val();
+    console.log(1);
+    if(qty){
+
+    var rate=$("#rate_id").val();
+    var amt= qty*rate;
+    $("#total_amount").val(amt);
+  }
+  });
 </script>
 </div>
 </body>

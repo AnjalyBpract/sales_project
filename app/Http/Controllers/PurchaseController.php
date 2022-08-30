@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Purchase;
+use App\Models\Transaction;
 use App\Models\Product_category;
 use App\Models\Product;
 use App\Models\User;
@@ -13,7 +13,7 @@ class PurchaseController extends Controller
     public function index()
     {
 
-    $purchases= Purchase::orderBy('id','desc')->paginate(5);
+    $purchases= Transaction::orderBy('id','desc')->paginate(5);
     return view('purchases.index', compact('purchases'));
     }
 
@@ -42,13 +42,13 @@ class PurchaseController extends Controller
     $today = Carbon::today();
     $request['date'] = $today;
 
-    Purchase::create($request->all());
+    Transaction::create($request->all());
 
     return redirect()->route('purchases.index')->with('success','Sales has been created successfully.');
 
     }
 
-    public function edit(Purchase $purchase)
+    public function edit(Transaction $purchase)
     {
 
          $datas=Product::get();
@@ -59,7 +59,7 @@ class PurchaseController extends Controller
 
     }
 
-    public function update(Request $request,Purchase $purchase)
+    public function update(Request $request,Transaction $purchase)
     {
 
     $purchase->update($request->all());
@@ -68,7 +68,7 @@ class PurchaseController extends Controller
     }
 
 
-    public function destroy(Purchase $purchase)
+    public function destroy(Transaction $purchase)
     {
     $purchase->delete();
      return redirect()->route('purchases.index')->with('success','Purchase  has been deleted successfully');

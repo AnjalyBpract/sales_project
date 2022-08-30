@@ -510,6 +510,7 @@ class ComposerStaticInita9793c85666aa9bb982fba0a586f82bd
         'App\\Http\\Controllers\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomerController.php',
         'App\\Http\\Controllers\\ProductCRUDController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductCRUDController.php',
         'App\\Http\\Controllers\\Product_categoryCURDController' => __DIR__ . '/../..' . '/app/Http/Controllers/Product_categoryCURDController.php',
+        'App\\Http\\Controllers\\ProfitReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfitReportController.php',
         'App\\Http\\Controllers\\PurchaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/PurchaseController.php',
         'App\\Http\\Controllers\\SaleCRUDController' => __DIR__ . '/../..' . '/app/Http/Controllers/SaleCRUDController.php',
         'App\\Http\\Controllers\\VendorController' => __DIR__ . '/../..' . '/app/Http/Controllers/VendorController.php',

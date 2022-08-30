@@ -91,19 +91,26 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Quantity</strong>
-                <input type="text" name="quantity" value="{{ $sale->quantity }}" class="form-control" >
+                <input type="text" name="quantity" value="{{ $sale->quantity }}" class="form-control" id="quantity_id" >
             @error('quantity')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
-
-
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Rate</strong>
+                <input type="text" name="rate" value="{{ $sale->rate }}" class="form-control" id="rate_id" >
+            @error('rate')
+                <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Total Amount</strong>
-                <input type="text" name="total_amount" value="{{ $sale->total_amount }}" class="form-control" >
+                <input type="text" name="total_amount" value="{{ $sale->total_amount }}" class="form-control" id="total_amount">
             @error('total_amount')
                 <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
             @enderror
@@ -185,6 +192,17 @@ success: function(res) {
 })
 });
 });
+$("#quantity_id").keyup(function(){
+    var qty= $(this).val();
+    console.log(1);
+    if(qty){
+
+    var rate=$("#rate_id").val();
+    var amt= qty*rate;
+    $("#total_amount").val(amt);
+  }
+  });
+
 </script>
 </div>
 </body>

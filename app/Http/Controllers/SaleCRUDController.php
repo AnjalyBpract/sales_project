@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
+use App\Models\Transaction;
 use App\Models\Product_category;
 use App\Models\Product;
 use App\Models\User;
@@ -14,7 +14,7 @@ class SaleCRUDController extends Controller
     public function index()
     {
 
-    $sales= Sale::orderBy('id','desc')->paginate(5);
+    $sales= Transaction::orderBy('id','desc')->paginate(5);
     return view('sales.index', compact('sales'));
     }
 
@@ -44,15 +44,15 @@ class SaleCRUDController extends Controller
     $today = Carbon::today();
     $request['date'] = $today;
 
-    Sale::create($request->all());
+    Transaction::create($request->all());
 
     return redirect()->route('sales.index')->with('success','Sales has been created successfully.');
 
     }
 
-    public function edit(Sale $sale)
+    public function edit(Transaction $sale)
     {
-       
+
          $datas=Product::get();
          $datass=Product_category::get();
         $data=User::where('type','customer')->get();
@@ -61,7 +61,7 @@ class SaleCRUDController extends Controller
 
     }
 
-    public function update(Request $request,Sale $sale)
+    public function update(Request $request,Transaction $sale)
     {
 
     $sale->update($request->all());
@@ -70,7 +70,7 @@ class SaleCRUDController extends Controller
     }
 
 
-    public function destroy(Sale $sale)
+    public function destroy(Transaction $sale)
     {
     $sale->delete();
      return redirect()->route('sales.index')->with('success','Sales  has been deleted successfully');
