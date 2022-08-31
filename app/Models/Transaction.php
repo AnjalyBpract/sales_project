@@ -18,6 +18,16 @@ class Transaction extends Model
          'total_amount'
     ];
 
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+    public function product_category(){
+        return $this->belongsTo(ProductCategory::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public static function getSalesAmount($startDate,$endDate){
         return SELF::whereBetween('date',[$startDate,$endDate])->where('type','customer')->sum('total_amount');
 

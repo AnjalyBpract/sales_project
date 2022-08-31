@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-use App\Models\Product_category;
+use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,15 +14,16 @@ class SaleCRUDController extends Controller
     public function index()
     {
 
-    $sales= Transaction::orderBy('id','desc')->paginate(5);
+    // $sales= Transaction::orderBy('id','desc')->paginate(5);
+    $sales=Transaction::with('product','product_category','user')->get();
     return view('sales.index', compact('sales'));
     }
 
     public function create()
     {
-    $datas = Product_category::get();
-    $data = User::get();
-    return view('sales.create',compact('data','datas'));
+    $datas = ProductCategory::get();
+    $sale = User::get();
+    return view('sales.create'compact('sale');
     }
 
     public function store(Request $request)
@@ -41,8 +42,8 @@ class SaleCRUDController extends Controller
     ]);
 
     $request['type']= 'customer';
-    $today = Carbon::today();
-    $request['date'] = $today;
+    $request['date']  = Carbon::today();
+
 
     Transaction::create($request->all());
 

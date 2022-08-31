@@ -38,26 +38,27 @@
         <th width="280px">Action</th>
     </tr>
         @foreach ($datas as $item)
-            @foreach ($item->products as $product)
+
                 <tr>
-                <td>{{ $product->id }}</td>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->product_category->name}}</td>
                 <td>{{ $item->name}}</td>
-                <td>{{ $product->name}}</td>
-                <td>{{ $product->description }}</td>
-                <td>{{ $product->purchase_price }}</td>
-                <td>{{ $product->sale_price }}</td>
-                {{-- <td>{{ $product->product_category_name }}</td> --}}
-                <td>@if($product->active == 1)active @else not in active @endif</td>
+
+                <td>{{ $item->description }}</td>
+                <td>{{ $item->purchase_price }}</td>
+                <td>{{ $item->sale_price }}</td>
+                {{-- <td>{{ $item->product_category_name }}</td> --}}
+                <td>@if($item->active == 1)active @else not in active @endif</td>
                 <td>
-                <form action="{{ route('products.destroy',$product->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                <form action="{{ route('products.destroy',$item->id) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ route('products.edit',$item->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                 </td>
              </tr>
-            @endforeach
+
             @endforeach
 </table>
 

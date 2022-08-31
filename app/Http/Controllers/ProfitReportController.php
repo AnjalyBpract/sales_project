@@ -17,8 +17,7 @@ class ProfitReportController extends Controller
     }
     public function report(Request $request)
     {
-        // dd($request);
-        // dd($request->startdate);
+
         $startDate= date($request->startDate);
         $endDate=date($request->endDate);
 
@@ -26,10 +25,8 @@ class ProfitReportController extends Controller
 
          $purhaseAmount=Transaction::getPurchasesAmount($startDate,$endDate);
 
-        // $total_sales= Transaction::whereBetween('date', [$startDate, $endDate])->where('type','customer')->sum('total_amount');
-        // $total_purchase= Transaction::whereBetween('date', [$startDate, $endDate])->where('type','vendor')->sum('total_amount');
+
         $result = $salesAmount-$purhaseAmount;
-        //   dd($purhaseAmount);
 
         if($result <= 0)
         {

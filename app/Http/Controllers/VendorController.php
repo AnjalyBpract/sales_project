@@ -9,7 +9,7 @@ class VendorController extends Controller
 {
     public function index()
     {
-        $vendors = User::orderBy('id','desc')->paginate(5);
+        $vendors = User::orderBy('id','desc')->where('type','vendor')->paginate(5);
         return view('vendors.index', compact('vendors'));
     }
 

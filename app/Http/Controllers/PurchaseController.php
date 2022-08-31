@@ -39,8 +39,7 @@ class PurchaseController extends Controller
     ]);
 
     $request['type']= 'vendor';
-    $today = Carbon::today();
-    $request['date'] = $today;
+    $request['date']  = Carbon::today();
 
     Transaction::create($request->all());
 

@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
 
 Route::resource('vendors', VendorController::class);
 Route::resource('customers', CustomerController::class);
@@ -58,3 +58,11 @@ Route::get('/report',[ProfitReportController::class,'report'])->name('report');
 // Route::post('/profitreport',[ProfitReportController::class,'report']);
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

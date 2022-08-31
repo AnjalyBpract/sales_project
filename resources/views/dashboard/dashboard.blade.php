@@ -39,7 +39,7 @@
             <a href="{{ url('/purchases') }}" class="btn btn-outline-primary">Purchase</a>
         </div>
         <div class="col-sm">
-            <a href="{{ route('profitreport') }}" class="btn btn-outline-primary">Report</a>
+            <a href="{{ route('profitreport') }}" class="btn btn-outline-primary">Profit Report</a>
         </div>
     </div>
 </div>

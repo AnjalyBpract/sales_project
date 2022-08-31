@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Product_category;
+use App\Models\ProductCategory;
 
 class ProductCRUDController extends Controller
 {
 
     public function index()
     {
-    $datas = Product_category::with('products')->get();
-    return view('products.index',compact('datas'));
+        $datas = Product::with('product_category')->get();
+        return view('products.index',compact('datas'));
 
     }
 
     public function create()
     {
-     $data = Product_category::with('products')->get();
+     $datas = ProductCategory::get();
 
-    return view('products.create',compact('data'));
+    return view('products.create',compact('datas'));
     }
 
     public function store(Request $request)
