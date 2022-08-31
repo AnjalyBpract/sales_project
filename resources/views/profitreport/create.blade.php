@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+
 {{-- <title>Add Company Form - Laravel 8 CRUD</title> --}}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 </head>
@@ -38,20 +39,22 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <strong>Start Date</strong>
-            <input type="date" class="form-control" id="startdate" name="startdate">
+            <input type="date" class="form-control" id="startDate" name="startDate">
             </div>
             <div class="form-group col-md-6">
                 <strong>End Date</strong>
-            <input type="date" class="form-control" id="enddate" name="enddate">
+            <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
-        </div>
-    </div>
+
 
             <div class="form-group col-md-6">
             <strong>Product Category:</strong>
             <label for="productcategory_id"></label>
             <select name="product_category_id" id="product_category_id" class="form-control">
-                <option value="">select category</option>
+                @foreach($data as $item)
+                <option value= "{{$item->id}}" >{{$item->name}}</option>
+                 @endforeach
+
             </select>
             </div>
 
@@ -63,7 +66,42 @@
                 <option value="">select product</option>
             </select>
             </div>
+        </div>
         <button type="submit" class="btn btn-primary ml-3">Submit</button>
     </form>
+
 </body>
 </html>
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+    $("#product_category_id").click(function(e) {
+        // console.log(1);
+
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+    e.preventDefault();
+
+    var product_category_id =  $(this).val();
+    $.ajax({
+    url:"{{ route('get_product') }}",
+    dataType:'html',
+    type:"POST",
+    data: { product_category: product_category_id},
+
+    success:function (data) {
+    //   console.log(data);
+        $("#product_id").html(data);
+
+    },
+    error:function (data) {
+        $("#product_id").html('There was an error please contact administrator');
+
+    },
+    })
+    });
+    });
+    </script>

@@ -12,22 +12,26 @@ class ProfitReportController extends Controller
 {
     public function index(Request $request)
     {
-    return view('profitreport.create');
+        $data = Product_category::get();
+        return view('profitreport.create',compact('data'));
     }
     public function report(Request $request)
     {
-
-
         // dd($request);
-    //    dd($request->startdate);
-        $startdate= date($request->startdate);
-        $enddate=date($request->enddate);
+        // dd($request->startdate);
+        $startDate= date($request->startDate);
+        $endDate=date($request->endDate);
 
-        $total_sales= Transaction::whereBetween('date', [$startdate, $enddate])->where('type','customer')->sum('total_amount');
-        $total_purchase= Transaction::whereBetween('date', [$startdate, $enddate])->where('type','vendor')->sum('total_amount');
-        $result = $total_sales-$total_purchase;
-        //  dd($result);
-        if($result < 0)
+         $salesAmount=Transaction::getSalesAmount($startDate,$endDate);
+
+         $purhaseAmount=Transaction::getPurchasesAmount($startDate,$endDate);
+
+        // $total_sales= Transaction::whereBetween('date', [$startDate, $endDate])->where('type','customer')->sum('total_amount');
+        // $total_purchase= Transaction::whereBetween('date', [$startDate, $endDate])->where('type','vendor')->sum('total_amount');
+        $result = $salesAmount-$purhaseAmount;
+        //   dd($purhaseAmount);
+
+        if($result <= 0)
         {
             $message="loss";
 
@@ -35,12 +39,13 @@ class ProfitReportController extends Controller
             $message="earn";
 
         }
-        return view('profitreport.create',compact('result','message'));
+        return view('profitreport.result',compact('result','message'));
 
     }
     public function reportt(Request $request)
     {
-    return view('profitreport.result');
+
+        return view('profitreport.create',compact('datas'));
     }
 
 }

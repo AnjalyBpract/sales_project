@@ -17,6 +17,15 @@ class Transaction extends Model
          'rate',
          'total_amount'
     ];
+
+    public static function getSalesAmount($startDate,$endDate){
+        return SELF::whereBetween('date',[$startDate,$endDate])->where('type','customer')->sum('total_amount');
+
+    }
+    public static function getPurchasesAmount($startDate,$endDate){
+        return SELF::whereBetween('date',[$startDate,$endDate])->where('type','vendor')->sum('total_amount');
+
+    }
 }
 
 
