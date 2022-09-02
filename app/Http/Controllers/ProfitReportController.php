@@ -31,19 +31,19 @@ class ProfitReportController extends Controller
 
          $purchaseAmount=$amount['purchases'];
 
-        $result = $salesAmount-$purchaseAmount;
+         $result = $salesAmount-$purchaseAmount;
 
         if($result <= 0)
         {
-            $report=abs($result);
+            $var=abs($result);
             $message="loss";
 
         }else{
-             $report=$result;
+             $var=$result;
             $message="earn";
 
         }
-        return view('profitreport.result',compact('report','message','salesAmount','purchaseAmount','result'));
+        return view('profitreport.result',compact('message','salesAmount','purchaseAmount','result'));
 
     }
 

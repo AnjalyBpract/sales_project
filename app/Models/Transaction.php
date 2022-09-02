@@ -40,14 +40,16 @@ class Transaction extends Model
     {
 
         $amount=[];
+
         $amount['sales']=SELF::where(function($query) use($request){
+
         $startDate=date($request->startDate);
         $endDate=date($request->endDate);
 
         $query->whereBetween('date',[$startDate,$endDate])->where('type','customer');
         if($request->product_category_id){
             $query->where('product_category_id',$request->product_category_id);
-            if($request->product_id !=" ")
+            if($request->product_id !='')
             $query->where('product_id',$request->product_id);
         }})->sum('total_amount');
 
@@ -58,7 +60,7 @@ class Transaction extends Model
             $query->whereBetween('date',[$startDate,$endDate])->where('type','vendor');
         if($request->product_category_id){
             $query->where('product_category_id',$request->product_category_id);
-            if($request->product_id !=" ")
+            if($request->product_id !='')
             $query->where('product_id',$request->product_id);
         }})->sum('total_amount');
 

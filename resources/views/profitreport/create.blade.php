@@ -15,7 +15,8 @@
                         <h2>Add Profit/Loss</h2>
                     </div>
                      <div class="pull-right">
-                    {{-- <a class="btn btn-primary" href="{{ route('profitreport.index') }}"> Back</a> --}}
+                        <div class="mb-2 text-right col-md-10 bg-light">
+                            <a class="btn btn-primary" href="{{ url('/dashboard') }}"> dashbord</a>
                     </div>
              </div>
             </div>
