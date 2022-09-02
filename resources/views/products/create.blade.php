@@ -35,15 +35,7 @@
                      @enderror
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Purchase Price:</strong>
-                    <input type="text" name="purchase_price" class="form-control" placeholder="Purchase Price">
-                    @error('purchase_price')
-                    <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
-                 @enderror
-        </div>
-    </div>
+
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -54,6 +46,15 @@
              @enderror
     </div>
 </div>
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="form-group">
+        <strong>Purchase Price:</strong>
+            <input type="text" name="purchase_price" class="form-control" placeholder="Purchase Price">
+            @error('purchase_price')
+            <div class="mt-1 mb-1 alert alert-danger">{{ $message }}</div>
+         @enderror
+</div>
+</div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Product Category:</strong>
@@ -63,21 +64,6 @@
                 @endforeach
             </select>
             </div>
-{{--
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                <strong>Product Category:</strong>
-                <label for="product_category_id"></label>
-                  <select name="product_category_id" id="product_category_id" class="form-control">
-                    <option value="">select category</option>
-                    @foreach (App\Models\Product_category::pluck('name','id') as $id => $name)
-
-                    <option value="{{ $id}}">{{ $name}}</option>
-                    @endforeach
-                  </select>
-                </div>
-                </div> --}}
-
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Description</strong>

@@ -60,7 +60,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <strong>User Type</strong>
         <select class="form-control" aria-label="Default select example" name="user_id"  id="user_id">
-            @foreach($sales as $item)
+            @foreach($sale as $item)
                 <option value= "{{$item->id}}" >{{$item->name}}</option>
             @endforeach
           </select>
@@ -71,7 +71,7 @@
                   <strong>Product Category</strong>
                       <label for="product_category_id"></label>
                       <select name="product_category_id" id="product_category_id" class="form-control">
-                      @foreach($sales as $item)
+                      @foreach($datas as $item)
                       <option value= "{{$item->id}}" >{{$item->name}}</option>
                   @endforeach
                 </select>

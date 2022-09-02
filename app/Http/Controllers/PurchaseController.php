@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-use App\Models\Product_category;
+use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,20 +13,21 @@ class PurchaseController extends Controller
     public function index()
     {
 
-    $purchases= Transaction::orderBy('id','desc')->paginate(5);
+    // $purchases= Transaction::orderBy('id','desc')->paginate(5);
+    $purchases=Transaction::with('product','product_category','user')->where('type','vendor')->get();
     return view('purchases.index', compact('purchases'));
     }
 
     public function create()
     {
-    $datas = Product_category::get();
+    $datas = ProductCategory::get();
     $data = User::get();
     return view('purchases.create',compact('data','datas'));
     }
 
     public function store(Request $request)
     {
-    //   dd( $request);
+
     $request->validate([
 
 
@@ -40,7 +41,6 @@ class PurchaseController extends Controller
 
     $request['type']= 'vendor';
     $request['date']  = Carbon::today();
-
     Transaction::create($request->all());
 
     return redirect()->route('purchases.index')->with('success','Sales has been created successfully.');
@@ -51,7 +51,7 @@ class PurchaseController extends Controller
     {
 
          $datas=Product::get();
-         $datass=Product_category::get();
+         $datass=ProductCategory::get();
         $data=User::where('type','vendor')->get();
 //  dd($data);
       return view('purchases.edit',compact('purchase','datas','data','datass'));
@@ -73,17 +73,7 @@ class PurchaseController extends Controller
      return redirect()->route('purchases.index')->with('success','Purchase  has been deleted successfully');
     }
 
-    public function product(Request $request)
-    {
-    $product_category=$request->product_category;
-   $products=Product::where('product_category_id',$product_category)->get();
-   return view('purchases.product',compact('products'));
-    }
 
-    public function rate(Request $request)
-    {
-        $product_id=$request->product_id;
-        $rate = Product::where('id',$product_id)->value('purchase_price');
-        return response()->json($rate);
-    }
+
+
 }

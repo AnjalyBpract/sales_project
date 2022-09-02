@@ -43,10 +43,10 @@
                 <tr>
                 {{-- <td>{{ $sale->id }}</td> --}}
                 <td>{{ $purchase->id}}</td>
-                <td>{{ $purchase->product_category_id }}</td>
-                <td>{{ $purchase->product_id }}</td>
+                <td>{{ $purchase->product_category->name }}</td>
+                <td>{{ $purchase->product->name}}</td>
                 <td>{{ $purchase->type }}</td>
-                <td>{{ $purchase->user_id }}</td>
+                <td>{{ $purchase->user->name }}</td>
                 <td>{{ $purchase->quantity }}</td>
                 <td>{{ $purchase->rate }}</td>
                 <td>{{ $purchase->total_amount }}</td>
@@ -63,6 +63,6 @@
     </tr>
             @endforeach
 </table>
-{!! $purchases->links() !!}
+{{-- {!! $purchases->links() !!} --}}
 </body>
 </html>

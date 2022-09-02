@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product_category;
+use App\Models\ProductCategory;
 
-class Product_categoryCURDController extends Controller
+class ProductCategoryController extends Controller
 {
 
     public function index()
     {
-    $product_categories= Product_category::orderBy('id','desc')->paginate(5);
+    $product_categories= ProductCategory::orderBy('id','desc')->paginate(5);
     return view('product_categories.index', compact('product_categories'));
     }
 
@@ -28,18 +28,18 @@ class Product_categoryCURDController extends Controller
     'active' => 'required'
     ]);
 
-    Product_category::create($request->all());
+    ProductCategory::create($request->all());
 
     return redirect()->route('product_categories.index')->with('success','Product Category has been created successfully.');
     }
 
-    public function edit(Product_category $product_category)
+    public function edit(ProductCategory $product_category)
 
     {
     return view('product_categories.edit',compact('product_category'));
     }
 
-    public function update(Request $request,Product_category $product_category)
+    public function update(Request $request,ProductCategory $product_category)
     {
 
     $product_category->update($request->all());
@@ -47,7 +47,7 @@ class Product_categoryCURDController extends Controller
     return redirect()->route('product_categories.index')->with('success','Product Category Has Been updated successfully');
     }
 
-    public function destroy(Product_category $product_category)
+    public function destroy(ProductCategory $product_category)
     {
         // dd($product_category);
         $product_category->delete();

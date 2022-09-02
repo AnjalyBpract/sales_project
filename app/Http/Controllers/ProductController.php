@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategory;
 
-class ProductCRUDController extends Controller
+class ProductController extends Controller
 {
 
     public function index()

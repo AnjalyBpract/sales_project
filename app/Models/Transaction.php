@@ -28,14 +28,44 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function getSalesAmount($startDate,$endDate){
-        return SELF::whereBetween('date',[$startDate,$endDate])->where('type','customer')->sum('total_amount');
+    // public static function getSalesAmount($startDate,$endDate){
+    //     return SELF::whereBetween('date',[$startDate,$endDate])->where('type','customer')->sum('total_amount');
 
-    }
-    public static function getPurchasesAmount($startDate,$endDate){
-        return SELF::whereBetween('date',[$startDate,$endDate])->where('type','vendor')->sum('total_amount');
+    // }
+    // public static function getPurchasesAmount($startDate,$endDate){
+    //     return SELF::whereBetween('date',[$startDate,$endDate])->where('type','vendor')->sum('total_amount');
 
+    // }
+    public static function getAmountWithDate($request)
+    {
+
+        $amount=[];
+        $amount['sales']=SELF::where(function($query) use($request){
+        $startDate=date($request->startDate);
+        $endDate=date($request->endDate);
+
+        $query->whereBetween('date',[$startDate,$endDate])->where('type','customer');
+        if($request->product_category_id){
+            $query->where('product_category_id',$request->product_category_id);
+            if($request->product_id !=" ")
+            $query->where('product_id',$request->product_id);
+        }})->sum('total_amount');
+
+        $amount['purchases']=SELF::where(function($query) use($request){
+            $startDate=date($request->startDate);
+            $endDate=date($request->endDate );
+
+            $query->whereBetween('date',[$startDate,$endDate])->where('type','vendor');
+        if($request->product_category_id){
+            $query->where('product_category_id',$request->product_category_id);
+            if($request->product_id !=" ")
+            $query->where('product_id',$request->product_id);
+        }})->sum('total_amount');
+
+
+            return $amount;
     }
+
 }
 
 

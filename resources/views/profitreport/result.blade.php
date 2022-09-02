@@ -8,9 +8,12 @@
 </head>
 <div class="container">
     <center><h1>Report</h1></center>
+    <h5><br>SalesAmount : ${{ $salesAmount }}</h5>
+    <h5><br>PurchaseAmount : ${{ $purchaseAmount }}</h5>
     @if($message == "loss")
   <h4><p class="text-danger">Result:{{$message}}:{{$result}}</p></h4>
    @else <h4><p class="text-primary">Result:{{$message}}:{{$result}} </p></h4>@endif
+
 </div>
 </body>
 </html>

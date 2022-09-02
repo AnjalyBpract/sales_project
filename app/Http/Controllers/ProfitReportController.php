@@ -3,46 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Product_category;
-use Carbon\Carbon;
+use App\Models\ProductCategory;
 use App\Models\Transaction;
-
+use App\Models\Product;
 class ProfitReportController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Product_category::get();
+        $data = ProductCategory::get();
         return view('profitreport.create',compact('data'));
     }
+
+
     public function report(Request $request)
     {
 
-        $startDate= date($request->startDate);
-        $endDate=date($request->endDate);
+        $request->validate([
 
-         $salesAmount=Transaction::getSalesAmount($startDate,$endDate);
+            'startDate' => 'required',
+            'endDate' => 'required'
+            ]);
 
-         $purhaseAmount=Transaction::getPurchasesAmount($startDate,$endDate);
 
+        $amount =Transaction::getAmountWithDate($request);
 
-        $result = $salesAmount-$purhaseAmount;
+         $salesAmount=$amount['sales'];
+
+         $purchaseAmount=$amount['purchases'];
+
+        $result = $salesAmount-$purchaseAmount;
 
         if($result <= 0)
         {
+            $report=abs($result);
             $message="loss";
 
         }else{
+             $report=$result;
             $message="earn";
 
         }
-        return view('profitreport.result',compact('result','message'));
+        return view('profitreport.result',compact('report','message','salesAmount','purchaseAmount','result'));
 
-    }
-    public function reportt(Request $request)
-    {
-
-        return view('profitreport.create',compact('datas'));
     }
 
 }
